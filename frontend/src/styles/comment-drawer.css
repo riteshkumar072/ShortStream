@@ -1,0 +1,174 @@
+/* --- MAIN WRAPPER --- */
+.comment-drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  justify-content: flex-end; 
+  align-items: stretch;
+  transition: opacity var(--transition-base), visibility var(--transition-base);
+  pointer-events: none;    /*background click ON */
+}
+
+/* --- OVERLAY (Background) --- */
+.drawer-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: transparent; /* Desktop fully transparent  overrlay*/
+}
+
+/* --- MAIN CONTENT BOX --- */
+.drawer-content-box {
+  position: relative;
+  background-color: var(--color-surface);
+  width: 400px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-md);
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1); 
+  pointer-events: auto;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+/* --- MOBILE DRAG HANDLE (Pill) --- */
+.drawer-drag-handle {
+  display: none;
+  width: 36px;
+  height: 4px;
+  background-color: var(--color-border);
+  border-radius: 4px;
+  margin: 12px auto 0 auto; 
+}
+
+/* --- HEADER --- */
+.drawer-header {
+  padding: var(--space-4);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.drawer-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: rgb(var(--color-text));
+  margin: 0;
+}
+
+.comment-count {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.drawer-close-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  padding: var(--space-1);
+  line-height: 1;
+}
+
+.drawer-divider {
+  height: 1px;
+  background-color: var(--color-border);
+  width: 100%;
+}
+
+/* --- BODY (Comments List) --- */
+.drawer-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.comment-item { display: flex; gap: var(--space-3); align-items: flex-start; }
+.comment-avatar { width: 36px; height: 36px; border-radius: 999px; background-color: var(--color-surface-alt); color: rgb(var(--color-text)); display: grid; place-items: center; font-weight: 600; font-size: 0.9rem; flex-shrink: 0; border: 1px solid var(--color-border); }
+.comment-details { display: flex; flex-direction: column; gap: var(--space-1); }
+.comment-user-info { display: flex; align-items: center; gap: var(--space-2); }
+.comment-username { font-size: 0.85rem; font-weight: 700; color: rgb(var(--color-text)); }
+.comment-time { font-size: 0.75rem; color: var(--color-text-secondary); }
+.comment-text { font-size: 0.9rem; color: rgb(var(--color-text)); margin: 0; line-height: 1.4; word-break: break-word; }
+
+/* --- FOOTER (Input Box) --- */
+.drawer-footer { padding: var(--space-4); background-color: var(--color-surface); padding-bottom: calc(env(safe-area-inset-bottom, 0) + var(--space-4)); }
+.comment-input-wrapper { display: flex; align-items: center; background-color: var(--color-surface-alt); border: 1px solid var(--color-border); border-radius: 24px; padding: var(--space-1) var(--space-4); gap: var(--space-2); }
+.comment-input { flex: 1; background: transparent; border: none; padding: var(--space-2) 0; color: rgb(var(--color-text)); font-size: 0.95rem; font-family: inherit; outline: none; }
+.comment-submit-btn { background: transparent; border: none; color: var(--color-accent); font-weight: 700; font-size: 0.95rem; cursor: pointer; padding: var(--space-1) var(--space-2); }
+
+
+
+
+@media (min-width: 601px) and (max-width: 1300px) {
+  
+  .comment-drawer {
+    display: block;
+    pointer-events: auto;
+  }
+
+  .drawer-overlay {
+    background-color: rgba(0, 0, 0, 0.2); 
+  }
+
+  .drawer-content-box {
+    width: 400px;
+    height: 60vh;
+    border-radius: var(--radius-md);
+    animation: popIn 0.3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  }
+  .drawer-footer{
+    border-radius: var(--radius-md);
+  }
+}
+@keyframes popIn {
+  from {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1); 
+    opacity: 1;
+  }
+}
+
+
+
+/*         MOBILE RESPONSIVENESS*/
+@media (max-width: 600px) {
+  .comment-drawer {
+    align-items: flex-end;
+    pointer-events: auto;  /*background click off */
+  }
+
+  .drawer-overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  .drawer-content-box {
+    width: 100%;
+    height: 65vh; 
+    border-radius: 16px 16px 0 0;
+    animation: slideUp 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  }
+  @keyframes slideUp {
+    from{transform: translateY(100%);}
+    to{transform: translateY(0);}
+  }
+
+
+  /* Mobile pe slider wali pill */
+  .drawer-drag-handle {
+    display: block; 
+  }
+
+  .drawer-header {
+    padding-top: var(--space-2); 
+  }
+}
