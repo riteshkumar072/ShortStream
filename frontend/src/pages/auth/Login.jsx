@@ -78,7 +78,7 @@ const Login = () => {
           <div className="field-group">
             <label htmlFor="password">Password</label>
             <div className="password-input-wrapper">
-              <input id="password" name="password" onChange={(e) => setPassword(e.target.value)} type={showPassword ? "text" : "password"} placeholder="Create password" autoComplete="new-password" />
+              <input id="password" name="password" onChange={(e) => setPassword(e.target.value)} type={showPassword ? "text" : "password"} placeholder="Enter password" autoComplete="new-password" />
 
               <button type="button" className="password-toggle-btn" onClick={() => setShowPassword(!showPassword)} >
                 {showPassword ? (
