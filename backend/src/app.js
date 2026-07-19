@@ -10,7 +10,7 @@ const app = express();
 
 
 app.use(cors({
-    origin: ["http://localhost:5173", "https://short-stream.vercel.app"],
+    origin: ["http://localhost:5173", "https://short-stream.vercel.app", "https://short-stream-kpjx99sg9-kumarritesh2006912-8706s-projects.vercel.app"],
     credentials: true
 }));
 
