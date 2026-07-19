@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken');
 
 async function registerUser(req, res) {
-    const { name, email, password } = req.body;
+    let { name, email, password } = req.body;
 
     if (!name || !email || !password) {
         return res.status(400).json({ success: false });
@@ -130,8 +130,8 @@ async function guestLogin(req, res) {
         res.cookie("token", guestToken, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            sameSite: "strict"
-        })
+            sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+        });
         return res.status(200).json({
             success: true,
             user: { _id: GUEST_ID, name: "Guest User", about: "Exploring the app" }

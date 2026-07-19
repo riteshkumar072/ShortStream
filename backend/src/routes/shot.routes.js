@@ -19,7 +19,7 @@ router.get('/',authMiddleware.authUserMiddleware, shotHandler.getShot)
 router.post('/like',authMiddleware.authUserMiddleware,restrictGuest, shotHandler.likeShot)
 
 router.post('/save',authMiddleware.authUserMiddleware, restrictGuest, shotHandler.saveShot)
-router.get('/save', authMiddleware.authUserMiddleware, shotHandler.getSavedShot)
+router.get('/save', authMiddleware.authUserMiddleware, restrictGuest, shotHandler.getSavedShot)
 
 router.delete('/delete/:shotId', authMiddleware.authUserMiddleware, restrictGuest, shotHandler.deleteShot)
 

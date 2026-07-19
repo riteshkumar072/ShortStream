@@ -41,7 +41,7 @@ apiClient.interceptors.response.use(
             toast.error("Please check your internet connection.")
         }
         else if (error.response.status >= 500) {
-            toast.error("Server Down")
+            toast.error("Something went wrong")
         }
         else if (error.response.status === 401) {
             toast.error(error.response.data.message)
