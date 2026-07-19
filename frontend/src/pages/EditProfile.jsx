@@ -1,9 +1,9 @@
 import React, { useState, useRef, useContext } from 'react'
-import '../../styles/edit-profile.css'
-import { AuthContext } from '../../context/AuthContext';
+import '../styles/edit-profile.css'
+import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import apiClient from '../../utils/api';
+import apiClient from '../utils/apiClient';
 
 
 const EditProfile = () => {

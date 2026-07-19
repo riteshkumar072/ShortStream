@@ -1,4 +1,4 @@
-import apiClient from "../utils/api";
+import apiClient from "../utils/apiClient";
 import { createContext , useState, useEffect} from "react";
 
 export const UploadContext = createContext();

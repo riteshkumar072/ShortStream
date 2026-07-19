@@ -1,8 +1,7 @@
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
-import axios from 'axios';
-import '../../styles/create-post.css';
+import '../styles/create-post.css';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { UploadContext } from '../../context/UploadContext';
+import { UploadContext } from '../context/UploadContext';
 
 const CreatePost = () => {
     const navigate = useNavigate();

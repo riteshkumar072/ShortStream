@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext , useRef} from 'react'
-import { AuthContext } from '../../context/AuthContext'
-import '../../styles/profile.css'
+import { AuthContext } from '../context/AuthContext'
+import '../styles/profile.css'
 import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
-import { useVideoActions } from '../../hooks/useVideoActions'
-import ShotFeed from '../../components/ShotFeed'
-import apiClient from '../../utils/api'
+import { useVideoActions } from '../hooks/useVideoActions'
+import ShotFeed from '../components/ShotFeed'
+import apiClient from '../utils/apiClient'
 
 const Profile = () => {
     const { id, shotId } = useParams()

@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { Navigate, Outlet } from "react-router-dom";
-import VideoSkeleton from "./VideoSkeleton";
+import VideoSkeleton from "../components/VideoSkeleton";
 
 const ProtectedRoute = () =>{
 

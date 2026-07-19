@@ -1,4 +1,4 @@
-import apiClient from '../utils/api';
+import apiClient from '../utils/apiClient';
 import { useContext } from 'react';
 import { FeedContext } from '../context/FeedContext';
 import toast from 'react-hot-toast';

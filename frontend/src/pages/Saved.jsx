@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import '../../styles/saved.css'
-import '../../styles/profile.css'
+import '../styles/saved.css'
+import '../styles/profile.css'
 import axios from 'axios'
-import ShotFeed from '../../components/ShotFeed'
-import { useVideoActions } from '../../hooks/useVideoActions'
+import ShotFeed from '../components/ShotFeed'
+import { useVideoActions } from '../hooks/useVideoActions'
 import { replace, useNavigate, useParams } from 'react-router-dom'
-import apiClient from '../../utils/api'
-import VideoSkeleton from '../../components/VideoSkeleton'
+import apiClient from '../utils/apiClient'
+import VideoSkeleton from '../components/VideoSkeleton'
 
 const Saved = () => {
     const [videos, setVideos] = useState([])

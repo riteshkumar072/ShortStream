@@ -1,13 +1,13 @@
 import React, { useEffect, useState, useRef } from 'react'
 import axios from 'axios';
-import '../../styles/shots-feed.css'
-import ShotFeed from '../../components/ShotFeed'
-import VideoSkeleton from '../../components/VideoSkeleton';
-import { useVideoActions } from '../../hooks/useVideoActions';
+import '../styles/shots-feed.css'
+import ShotFeed from '../components/ShotFeed'
+import VideoSkeleton from '../components/VideoSkeleton';
+import { useVideoActions } from '../hooks/useVideoActions';
 import { useContext } from 'react';
-import { FeedContext } from '../../context/FeedContext';
+import { FeedContext } from '../context/FeedContext';
 import { data, useParams } from 'react-router-dom';
-import apiClient from '../../utils/api';
+import apiClient from '../utils/apiClient';
 
 const Home = () => {
     const { videos, setVideos} = useContext(FeedContext)

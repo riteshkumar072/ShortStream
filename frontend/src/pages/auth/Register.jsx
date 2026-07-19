@@ -3,7 +3,7 @@ import '../../styles/auth-shared.css';
 import { AuthContext } from '../../context/AuthContext';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import apiClient from '../../utils/api';
+import apiClient from '../../utils/apiClient';
 
 const Register = () => {
   const navigate = useNavigate();
