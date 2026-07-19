@@ -5,6 +5,9 @@ const userModel = require('../models/user.model');
 
 
 async function authUserMiddleware(req, res, next) {
+        console.log("===== AUTH MIDDLEWARE =====");
+    console.log("Cookies:", req.cookies);
+    console.log("Token:", req.cookies?.token);
     const token = req.cookies.token;
 
     if (!token) {
