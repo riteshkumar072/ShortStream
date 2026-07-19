@@ -75,7 +75,11 @@ async function loginUser(req, res) {
         id: user._id,
     }, process.env.JWT_SECRET)
 
-    res.cookie("token", token)
+    res.cookie("token", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    });
 
     res.status(200).json({
         message: "user logged successfully",
@@ -112,27 +116,27 @@ async function logoutUser(req, res) {
 
 
 const GUEST_ID = "660000000000000000000000";
-async function guestLogin(req,res) {
+async function guestLogin(req, res) {
     try {
         const guestToken = jwt.sign(
-            {_id: GUEST_ID, role: "guest"},
+            { _id: GUEST_ID, role: "guest" },
             process.env.JWT_SECRET,
-            {expiresIn: '1d'}
+            { expiresIn: '1d' }
         )
-        res.cookie("token",guestToken,{
+        res.cookie("token", guestToken, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
             sameSite: "strict"
         })
         return res.status(200).json({
-            success:true,
-            user:{_id: GUEST_ID, name: "Guest User", about: "Exploring the app"}
+            success: true,
+            user: { _id: GUEST_ID, name: "Guest User", about: "Exploring the app" }
         })
-        
+
     } catch (error) {
-        
+
     }
-    
+
 }
 
 module.exports = { registerUser, loginUser, logoutUser, getMe, guestLogin }
