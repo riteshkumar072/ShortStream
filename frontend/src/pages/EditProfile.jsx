@@ -19,7 +19,7 @@ const EditProfile = () => {
     const ABOUT_LIMIT = 150;
     const isNameOverLimit = name.length > NAME_LIMIT;
     const isAboutOverLimit = about.length > ABOUT_LIMIT;
-    const isUnchanged = name === loggedUserName && about === loggedUserAbout && previewImage === null;
+    const isUnchanged = name === loggedUserName && about === (loggedUserAbout || "") && previewImage === null;
 
     const isButtonDisabled = name.trim().length === 0 || isNameOverLimit || isAboutOverLimit || isUnchanged
 
