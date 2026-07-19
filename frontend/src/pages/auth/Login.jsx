@@ -12,7 +12,7 @@ const Login = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [showPassword, setShowPassword] = useState(false);
-  const { setLoggedUserId } = useContext(AuthContext)
+  const { setLoggedUserId, setloggedUserProfileIMG, setLoggedUserName, setLoggedUserAbout } = useContext(AuthContext)
   const [loginError, setLoginError] = useState("");
 
 
@@ -27,7 +27,11 @@ const Login = () => {
         password
       });
 
+      setLoggedUserName(response.data.user.name)
       setLoggedUserId(response.data.user._id)
+      setLoggedUserAbout(response.data.user.about)
+      setloggedUserProfileIMG(response.data.user.profileImage)
+      
       navigate("/");
 
     } catch (error) {
@@ -52,7 +56,7 @@ const Login = () => {
     }
   }
 
-  
+
   return (
     <div className="auth-page-wrapper">
       <div className="auth-card" role="region" aria-labelledby="login-title">
@@ -106,9 +110,9 @@ const Login = () => {
             )}
           </button>
         </form>
-          <button type='guest-login' onClick={handleGuestLogin} className="guest-login-btn">
-            Explore as Guest
-          </button>
+        <button type='guest-login' onClick={handleGuestLogin} className="guest-login-btn">
+          Explore as Guest
+        </button>
 
         <div className="auth-alt-action">
           New user? <a href="/register">Create an account</a>

@@ -38,7 +38,6 @@ export const useVideoActions = (customSetVideos = null) => {
     async function deleteVideo(item) {
         try{const response = await apiClient.delete(`/shot/delete/${item._id}`, { hideLoader: true })
         if (response.status === 200) {
-            console.log(response.data)
             setVideos((prevVideos) => prevVideos.filter((video) => video._id !== item._id));
             toast.success(response.data.message)
         }}catch(err){

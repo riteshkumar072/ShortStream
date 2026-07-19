@@ -109,6 +109,7 @@ async function editProfile(req,res) {
         ).select('-password -phone -email')
 
         res.status(200).json({ 
+            message: "Changes saved successfully",
             success: true,
             updatedUserData
         });

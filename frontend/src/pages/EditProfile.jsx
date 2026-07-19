@@ -1,10 +1,9 @@
-import React, { useState, useRef, useContext } from 'react'
+import React, { useState, useRef, useContext, useEffect } from 'react'
 import '../styles/edit-profile.css'
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import apiClient from '../utils/apiClient';
-
+import toast from 'react-hot-toast';
 
 const EditProfile = () => {
     const { loggedUserProfileIMG, loggedUserName, loggedUserAbout } = useContext(AuthContext)
@@ -20,12 +19,14 @@ const EditProfile = () => {
     const ABOUT_LIMIT = 150;
     const isNameOverLimit = name.length > NAME_LIMIT;
     const isAboutOverLimit = about.length > ABOUT_LIMIT;
-    const isUnchanged = name === loggedUserName && about === loggedUserAbout && profileImage === loggedUserProfileIMG;
+    const isUnchanged = name === loggedUserName && about === loggedUserAbout && previewImage === null;
 
     const isButtonDisabled = name.trim().length === 0 || isNameOverLimit || isAboutOverLimit || isUnchanged
 
 
     const fileInputRef = useRef(null);
+
+    
 
     const openFileDialog = () => {
         fileInputRef.current?.click()
@@ -53,8 +54,8 @@ const EditProfile = () => {
         try {
             apiClient.put('/user/edit-profile', formData)
                 .then(response => {
-                    console.log(response.data)
                     navigate(-1)
+                    toast.success(response.data.message)
                 })
         } catch (error) {
             console.error('Update failed:', error);

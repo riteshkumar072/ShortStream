@@ -90,7 +90,9 @@ async function loginUser(req, res) {
         user: {
             _id: user._id,
             email: user.email,
-            name: user.name
+            name: user.name,
+            about: user.about,
+            profileImage: user.profileImage
         }
     })
 }
