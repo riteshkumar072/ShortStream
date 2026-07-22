@@ -12,7 +12,7 @@ export const useVideoActions = (customSetVideos = null) => {
             const response = await apiClient.post("/shot/like", { shotId: item._id } , { hideLoader: true })
 
             if (response.data.like) {
-                setVideos((prev) => prev.map((v) => v._id === item._id ? { ...v, likeCount: Math.max(0, (v.likeCount ?? 1) + 1), isLiked: true } : v))
+                setVideos((prev) => prev.map((v) => v._id === item._id ? { ...v, likeCount: v.likeCount + 1, isLiked: true } : v))
             } else {
                 setVideos((prev) => prev.map((v) => v._id === item._id ? { ...v, likeCount: Math.max(0, (v.likeCount ?? 1) - 1), isLiked: false } : v))
             }
@@ -26,7 +26,7 @@ export const useVideoActions = (customSetVideos = null) => {
         try{const response = await apiClient.post("/shot/save", { shotId: item._id } ,{ hideLoader: true })
 
         if (response.data.save) {
-            setVideos((prev) => prev.map((v) => v._id === item._id ? { ...v, saveCount: Math.max(0, (v.saveCount ?? 1) + 1), isSaved: true } : v))
+            setVideos((prev) => prev.map((v) => v._id === item._id ? { ...v, saveCount: v.saveCount + 1, isSaved: true } : v))
         } else {
             setVideos((prev) => prev.map((v) => v._id === item._id ? { ...v, saveCount: Math.max(0, (v.saveCount ?? 1) - 1), isSaved: false } : v))
         }
