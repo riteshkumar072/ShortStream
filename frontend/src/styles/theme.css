@@ -34,14 +34,17 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --color-bg: #050025;
-    --color-surface: #151737;
+    --color-surface: #11062e;
     --color-surface-alt: #19153e;
-    --color-border: #334155; 
+    --color-border: #151737;
     --color-text: 255,255,255; 
     --color-text-secondary: #94a3b8; 
     --color-accent: #3b82f6; 
     --color-accent-hover: #60a5fa; 
     --color-danger: #f87171; 
+
+
+  
 
     --invert: 1;
 
