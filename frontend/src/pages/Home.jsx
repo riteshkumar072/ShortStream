@@ -33,7 +33,7 @@ const Home = () => {
                     setVideos(response.data.shot)
                 }).finally(()=>setIsDataLoading(false))
         }
-    }, [videos, shotId])
+    }, [ shotId])
 
     if(isDataLoading){
         return <VideoSkeleton/>
