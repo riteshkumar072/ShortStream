@@ -13,7 +13,8 @@ const saveSchema = new mongoose.Schema({
     }
 })
 
+
+saveSchema.index({user:1, shot:1}, {unique: true})
+
 const saveModel = mongoose.model('save',saveSchema)
-
-
 module.exports = saveModel

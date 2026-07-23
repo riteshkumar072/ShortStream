@@ -14,6 +14,8 @@ const likeSchema = new mongoose.Schema({
     }
 })
 
+likeSchema.index({user:1, shot:1}, {unique: true})
+
 const likeModel = mongoose.model("like", likeSchema)
 
 module.exports = likeModel;

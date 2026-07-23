@@ -8,31 +8,41 @@ export const useVideoActions = (customSetVideos = null) => {
     const setVideos = customSetVideos || contextSetVideos;
 
     async function likeVideo(item) {
+        setVideos((prev) => prev.map((v) =>
+            v._id === item._id ? {
+                ...v, likeCount: v.isLiked ? Math.max(0, (v.likeCount) - 1) : v.likeCount + 1,
+                isLiked: !v.isLiked
+            } : v))
         try {
-            const response = await apiClient.post("/shot/like", { shotId: item._id } , { hideLoader: true })
-
-            if (response.data.like) {
-                setVideos((prev) => prev.map((v) => v._id === item._id ? { ...v, likeCount: v.likeCount + 1, isLiked: true } : v))
-            } else {
-                setVideos((prev) => prev.map((v) => v._id === item._id ? { ...v, likeCount: Math.max(0, (v.likeCount ?? 1) - 1), isLiked: false } : v))
-            }
+            await apiClient.post("/shot/like", { shotId: item._id }, { hideLoader: true })
         } catch (error) {
             console.error("like failed ", error)
+            setVideos((prev) => prev.map((v) => v._id === item._id ? {
+                ...v, likeCount: v.isLiked ? v.likeCount + 1 : Math.max(0, v.likeCount - 1),
+                isLiked: !v.isLiked
+            } : v))
         }
 
     }
 
     async function saveVideo(item) {
-        try{const response = await apiClient.post("/shot/save", { shotId: item._id } ,{ hideLoader: true })
+        setVideos(prev => prev.map((v) =>
+            v._id === item._id ? {
+                ...v, saveCount: v.isSaved ? Math.max(0, (v.saveCount) - 1) : v.saveCount + 1,
+                isSaved: !v.isSaved
+            } : v))
+        try {
+            await apiClient.post("/shot/save", { shotId: item._id }, { hideLoader: true })
 
-        if (response.data.save) {
-            setVideos((prev) => prev.map((v) => v._id === item._id ? { ...v, saveCount: v.saveCount + 1, isSaved: true } : v))
-        } else {
-            setVideos((prev) => prev.map((v) => v._id === item._id ? { ...v, saveCount: Math.max(0, (v.saveCount ?? 1) - 1), isSaved: false } : v))
+        } catch (err) {
+            console.error("save failed", err)
+            setVideos(prev => prev.map((v) =>
+                v._id === item._id ? {
+                    ...v, saveCount: v.isSaved ? v.saveCount + 1 : Math.max(0, v.saveCount - 1),
+                    isSaved: !v.isSaved
+                } : v))
+
         }
-    }catch(err){
-        console.error("save failed", err)
-    }
     }
 
     async function deleteVideo(item) {

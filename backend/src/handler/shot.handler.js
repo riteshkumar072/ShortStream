@@ -72,84 +72,58 @@ async function getShot(req, res) {
 async function likeShot(req, res) {
     const { shotId } = req.body
     const user = req.user;
-    console.log(req.body);
-    console.log(shotId);
+    try {
+        const existingLike = await likeModel.findOneAndDelete({ user: user._id, shot: shotId })
+        if (existingLike) {
+            await shotModel.findByIdAndUpdate(shotId, {
+                $inc: { likeCount: -1 }
+            })
+            return res.status(200).json({ message: "unliked" })
+        }
 
-    const isAlreadyLiked = await likeModel.findOne({
-        user: user._id,
-        shot: shotId
-    })
-
-    if (isAlreadyLiked) {
-        await likeModel.deleteOne({
-            user: user._id,
-            shot: shotId
-        })
+        await likeModel.create({ user: req.user._id, shot: shotId})
 
         await shotModel.findByIdAndUpdate(shotId, {
-            $inc: { likeCount: -1 }
+            $inc: { likeCount: +1 }
         })
 
-        return res.status(200).json({
-            message: "shot unliked successfully"
+        return res.status(201).json({
+            message: "shot liked successfully",
         })
-
+    } catch (err) {
+        if (err.code === 11000) {
+            return res.status(200).json({ message: "Duplicate click ignored" })
+        }
+        return res.status(500).json({ err: err.message })
     }
-
-    const like = await likeModel.create({
-        user: req.user._id,
-        shot: shotId
-    })
-
-    await shotModel.findByIdAndUpdate(shotId, {
-        $inc: { likeCount: +1 }
-    })
-
-    res.status(201).json({
-        message: "shot liked successfully",
-        like
-    })
 }
 
 
 async function saveShot(req, res) {
     const { shotId } = req.body
     const user = req.user;
-
-    const isAlreadySaved = await saveModel.findOne({
-        user: user._id,
-        shot: shotId
-    })
-
-    if (isAlreadySaved) {
-        await saveModel.deleteOne({
-            user: user._id,
-            shot: shotId
+try{
+    const existingSave = await saveModel.findOneAndDelete({shot:shotId, user: user._id})
+    if(existingSave){
+        await shotModel.findByIdAndUpdate(shotId,{
+            $inc: {saveCount: -1}
         })
-
-        await shotModel.findByIdAndUpdate(shotId, {
-            $inc: { saveCount: -1 }
-        })
-
-        return res.status(200).json({
-            message: "shot unsaved successfully"
-        })
-
+        return res.status(200).json({message: "Unsaved succesfuly"})
     }
 
-    const save = await saveModel.create({
-        user: req.user._id,
-        shot: shotId
-    })
+    await saveModel.create({ user: req.user._id, shot: shotId })
 
     await shotModel.findByIdAndUpdate(shotId, {
         $inc: { saveCount: +1 }
     })
 
-    res.status(201).json({
-        message: "shot saved successfully",
-        save
-    })
+    return res.status(201).json({ message: "shot saved successfully"})
+    }catch(error){
+        if(error.code===11000){
+            return res.status(200).json({message:"Duplicate click ignored"})
+        }
+        return res.status(500).json({error: error.message})
+    }
 }
 
 
